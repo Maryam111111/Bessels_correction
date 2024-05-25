@@ -1,0 +1,30 @@
+import deeptime
+import yfinance as yf
+import pandas as pd
+
+from deeptime.covariance import Covariance
+
+# Estimate covariance matrix using CovarianceModel
+
+
+
+# Define the stock ticker
+ticker = "MSFT"
+
+# Download the historical stock price data
+data = yf.download(ticker, start="2022-01-01", end="2022-12-31")
+
+# Extract the adjusted closing prices
+time_series_data = data['Adj Close'].values
+#bessels_correction
+# Estimate covariance matrix using Deeptime
+covariance_estimator = Covariance()
+covariance_matrix = covariance_estimator.fit(time_series_data).fetch_model()
+
+#covariance_estimator = CovarianceModel()
+#covariance_matrix = covariance_estimator.fit_transform(time_series_data)
+#covariance_estimator = CovarianceKoopmanModel()
+#covariance_matrix = covariance_estimator.fit_transform(time_series_data)
+
+# Print the estimated covariance matrix
+print(covariance_matrix)
